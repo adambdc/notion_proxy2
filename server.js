@@ -279,6 +279,7 @@ app.use((err, req, res, next) => {
       status: 500
   });
 });
+// update homeskillet
 
 
 // --- Start Server ---
@@ -294,62 +295,3 @@ app.listen(PORT, () => {
 
 // Export the app
 export default app;
-
-```json
-// package.json
-// (No changes needed from the previous version)
-{
-  "name": "notion-proxy-server",
-  "version": "1.0.0",
-  "description": "Proxy server for interacting with the Notion API",
-  "main": "server.js",
-  "type": "module", // Using ES module syntax (import/export)
-  "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js" // Requires nodemon: npm install -D nodemon
-  },
-  "keywords": [
-    "notion",
-    "api",
-    "proxy",
-    "express",
-    "chatgpt"
-  ],
-  "author": "", // Add your name/org
-  "license": "ISC", // Choose a license
-  "dependencies": {
-    "axios": "^1.6.8",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.0" // Optional: for auto-restarting during development
-  }
-}
-```yaml
-# render.yaml
-# Basic configuration for deploying the Node.js proxy on Render
-
-services:
-  - type: web # Specifies a web service
-    name: notion-proxy # Choose a name for your service
-    env: node # Specifies the runtime environment
-    plan: free # Or your desired Render plan (e.g., starter)
-    buildCommand: npm install # Command to install dependencies
-    startCommand: npm start # Command to start the server (uses package.json script)
-    envVars:
-      - key: NODE_VERSION # Optional: Specify Node.js version if needed
-        value: 20 # Example: Use Node.js 20.x.x
-      - key: NODE_ENV
-        value: production
-      # --- Secrets (Set these in the Render Dashboard Environment) ---
-      - key: NOTION_API_KEY
-        sync: false # Indicates this is a secret managed in Render UI
-      - key: PROXY_API_KEY
-        sync: false # Indicates this is a secret managed in Render UI
-      # - key: NOTION_TARGET_DATABASE_ID # Add this if you switch insert-record to use env var
-      #   sync: false
-
-# Optional: Health Check configuration
-# Render automatically checks '/' but you can customize it
-#    healthCheckPath: /health
