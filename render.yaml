@@ -1,0 +1,15 @@
+# render.yaml - Configuration file for deploying to Render.com
+
+services:
+  - type: web
+    name: notion-proxy
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NOTION_API_KEY
+        sync: false
+      - key: DATABASE_ID
+        sync: false
+      - key: PORT
+        value: 10000
